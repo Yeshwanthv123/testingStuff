@@ -1,4 +1,3 @@
-// placeholder for JoinSection.tsx
 import React, { useState } from 'react';
 import { joinBenefits } from '../data/benefits';
 
@@ -42,7 +41,7 @@ export function JoinSection() {
               <h3 className="text-[21px] font-medium box-border tracking-[-0.21px] leading-7 outline-[oklab(0.708_0_0_/_0.5)] mb-[7px]">Ready to try?</h3>
               <p className="text-[oklch(0.446_0.03_256.802)] box-border leading-[22.4px] outline-[oklab(0.708_0_0_/_0.5)]">Sign up to reduce your footprint.</p>
             </div>
-            <form className="box-border outline-[oklab(0.708_0_0_/_0.5)] mb-[21px]" onSubmit={handleSubmit}>
+            <form className="box-border outline-[oklab(0.708_0_0_/_0.5)] mb-3.5" onSubmit={handleSubmit}>
               <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] mb-3.5">
                 <input
                   type="email"
@@ -56,6 +55,14 @@ export function JoinSection() {
                 Get Started
               </button>
             </form>
+            <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center mb-[21px]">
+              <button 
+                className="text-[oklch(0.446_0.03_256.802)] text-sm underline hover:text-black transition-colors cursor-pointer bg-transparent border-none"
+                onClick={() => console.log('Existing user login clicked')}
+              >
+                Already existing user? Sign in
+              </button>
+            </div>
             <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center">
               <p className="text-[oklch(0.551_0.027_264.364)] text-[12.25px] box-border leading-[17.5px] outline-[oklab(0.708_0_0_/_0.5)]">Join thousands making a difference, one step at a time.</p>
             </div>
