@@ -1,70 +1,59 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Leaf } from 'lucide-react';
 
-interface NavigationProps {
-  onNavigate?: (page: string) => void;
-  currentPage?: string;
-}
+export function Navigation() {
+  const navigate = useNavigate();
 
-export function Navigation({ onNavigate, currentPage = 'home' }: NavigationProps) {
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleNavigation = (page: string, sectionId?: string) => {
-    if (onNavigate) {
-      if (page === 'home' && sectionId) {
-        onNavigate('home');
-        setTimeout(() => scrollToSection(sectionId), 100);
-      } else {
-        onNavigate(page);
+    // If we're not on the home page, navigate there first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
       }
-    } else if (sectionId) {
-      scrollToSection(sectionId);
     }
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-              <Leaf className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-lg font-semibold text-black">Carbon Counter</span>
-          </div>
+    <nav className="sticky bg-white box-border outline-[oklab(0.708_0_0_/_0.5)] w-full z-50 border-b border-solid border-[oklch(0.928_0.006_264.531)] top-0">
+      <div className="box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 py-[10.5px] md:px-[21px] md:py-3.5">
+        <div className="items-center box-border flex justify-between outline-[oklab(0.708_0_0_/_0.5)]">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 text-black hover:text-gray-700">
+            <Leaf className="w-6 h-6" />
+            <span className="text-lg font-bold">Carbon Counter</span>
+          </Link>
           
-          <div className="flex items-center space-x-8">
+          {/* Navigation Items */}
+          <div className="flex items-center space-x-6">
             <button 
-              onClick={() => handleNavigation('home', 'hero')}
-              className={`text-sm font-medium transition-colors ${
-                currentPage === 'home' 
-                  ? 'text-black border-b-2 border-black pb-1' 
-                  : 'text-gray-600 hover:text-black'
-              }`}
+              onClick={() => scrollToSection('home')}
+              className="text-black text-[12.25px] font-medium bg-transparent leading-[17.5px] outline-[oklab(0.708_0_0_/_0.5)] text-center hover:text-gray-600 md:text-[15.75px] md:leading-[24.5px]"
             >
               Home
             </button>
             <button 
-              onClick={() => handleNavigation('home', 'about')}
-              className="text-gray-600 text-sm hover:text-black transition-colors"
+              onClick={() => scrollToSection('about')}
+              className="text-[oklch(0.446_0.03_256.802)] text-[12.25px] bg-transparent leading-[17.5px] outline-[oklab(0.708_0_0_/_0.5)] text-center hover:text-black md:text-[15.75px] md:leading-[24.5px]"
             >
               About
             </button>
-            <button 
-              onClick={() => handleNavigation('login')}
-              className={`text-sm transition-colors ${
-                currentPage === 'login' 
-                  ? 'text-black font-medium' 
-                  : 'text-gray-600 hover:text-black'
-              }`}
+            <Link 
+              to="/login"
+              className="text-[oklch(0.446_0.03_256.802)] text-[12.25px] bg-transparent leading-[17.5px] outline-[oklab(0.708_0_0_/_0.5)] text-center hover:text-black md:text-[15.75px] md:leading-[24.5px]"
             >
               Sign In
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -48,7 +48,6 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
@@ -57,7 +56,7 @@ module.exports = {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
-        "inter": ["Inter", "sans-serif"]
+        "Inter": ["Inter"]
       },
       keyframes: {
         "accordion-down": {

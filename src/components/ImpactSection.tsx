@@ -1,59 +1,33 @@
 import React from 'react';
-
-const impacts = [
-  {
-    title: 'Environmental Focus',
-    description: 'Our team combines expertise in environmental science, technology, and user experience to create tools that make a real difference in the fight against climate change.'
-  },
-  {
-    title: 'Community Driven',
-    description: "We're building more than just an app – we're fostering a global community of environmentally conscious individuals working together toward sustainability."
-  },
-  {
-    title: 'Scientific Accuracy',
-    description: 'All our carbon calculations are based on the latest climate science research and internationally recognized methodologies for carbon accounting.'
-  }
-];
+import { impactItems } from '../data/impact';
 
 export function ImpactSection() {
   return (
-    <section className="py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-            Our Impact
-          </h2>
-          <p className="text-gray-700 text-lg">
-            Dedicated to making sustainability achievable for everyone
-          </p>
+    <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] py-20 md:py-32 min-h-screen flex items-center bg-white">
+      <div className="box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:px-[21px] w-full">
+        <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center mb-[42px] md:mb-14">
+          <h2 className="text-[26.25px] font-bold box-border leading-[31.5px] outline-[oklab(0.708_0_0_/_0.5)] mb-3.5 md:text-[31.5px] md:leading-[35px]">Our Impact</h2>
+          <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[24.5px] outline-[oklab(0.708_0_0_/_0.5)] px-3.5 md:text-[17.5px]">Dedicated to making sustainability achievable for everyone</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-16">
-          {impacts.map((impact, index) => (
-            <div key={index}>
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-black mb-4">
-                  {impact.title}
-                </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  {impact.description}
-                </p>
+        <div className="items-center box-border gap-x-7 grid grid-cols-none outline-[oklab(0.708_0_0_/_0.5)] gap-y-7 md:gap-x-14 md:grid-cols-[repeat(2,minmax(0px,1fr))] md:gap-y-14">
+          {impactItems.map((item) => (
+            <div key={item.id} className="box-border outline-[oklab(0.708_0_0_/_0.5)]">
+              <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] mb-[35px] md:mb-[42px]">
+                <h3 className="text-[21px] font-bold box-border leading-7 outline-[oklab(0.708_0_0_/_0.5)] mb-3.5 md:mb-[21px]">{item.title}</h3>
+                <p className="text-[oklch(0.373_0.034_259.733)] text-[15.75px] box-border leading-[25.5938px] outline-[oklab(0.708_0_0_/_0.5)]">{item.description}</p>
               </div>
             </div>
           ))}
         </div>
-        <div className="bg-gray-100 p-8 md:p-12 rounded-lg">
-          <div className="text-center">
-            <h3 className="text-2xl md:text-3xl font-bold text-black mb-6">
-              Environmental Commitment
-            </h3>
-            <p className="text-gray-700 leading-relaxed max-w-2xl mx-auto">
-              We're committed to transparency, scientific accuracy, and making environmental action 
-              accessible to everyone. Our platform is built on the latest climate science and designed 
-              with sustainability at its core.
+        <div className="bg-[oklch(0.967_0.003_264.542)] box-border outline-[oklab(0.708_0_0_/_0.5)] p-7 rounded-[8.75px] md:p-[42px]">
+          <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center">
+            <h3 className="text-[21px] font-bold box-border leading-7 outline-[oklab(0.708_0_0_/_0.5)] mb-[21px] md:text-[26.25px] md:leading-[31.5px] md:mb-7">Environmental Commitment</h3>
+            <p className="text-[oklch(0.446_0.03_256.802)] text-sm box-border leading-[22.75px] max-w-[392px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto md:text-[15.75px] md:leading-[25.5938px]">
+              We're committed to transparency, scientific accuracy, and making environmental action accessible to everyone. Our platform is built on the latest climate science and designed with sustainability at its core.
             </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

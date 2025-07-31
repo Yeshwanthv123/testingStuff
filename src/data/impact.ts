@@ -1,10 +1,10 @@
-export interface Impact {
+export interface ImpactItem {
   readonly id: string;
   readonly title: string;
   readonly description: string;
 }
 
-export const impactData: Impact[] = [
+export const impactItems: ImpactItem[] = [
   {
     id: 'environmental',
     title: 'Environmental Focus',

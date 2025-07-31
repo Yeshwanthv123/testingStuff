@@ -1,49 +1,20 @@
-import React, { useState } from 'react';
-import { Navigation } from './components/Navigation';
-import { HeroSection } from './components/HeroSection';
-import { WhyCarbonCounterSection } from './components/WhyCarbonCounter';
-import { FoundationSection } from './components/FoundationSection';
-import { AboutSection } from './components/AboutSection';
-import { ValuesSection } from './components/ValuesSection';
-import { ImpactSection } from './components/ImpactSection';
-import { JoinSection } from './components/JoinSection';
-import { LoginPage } from './components/LoginPage';
-import { SignupPage } from './components/SignupPage';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { SignUpPage } from './pages/SignupPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-
-  const handleNavigation = (page: string) => {
-    setCurrentPage(page);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'login':
-        return <LoginPage onNavigate={handleNavigation} />;
-      case 'signup':
-        return <SignupPage onNavigate={handleNavigation} />;
-      case 'home':
-      default:
-        return (
-          <>
-            <HeroSection onNavigate={handleNavigation} />
-            <WhyCarbonCounterSection />
-            <FoundationSection />
-            <AboutSection />
-            <ValuesSection />
-            <ImpactSection />
-            <JoinSection onNavigate={handleNavigation} />
-          </>
-        );
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white font-inter">
-      <Navigation onNavigate={handleNavigation} currentPage={currentPage} />
-      {renderPage()}
-    </div>
+    <Router>
+      <div className="text-[oklch(0.145_0_0)] text-sm not-italic normal-nums font-normal accent-auto bg-white box-border block tracking-[normal] leading-[21px] list-outside list-disc outline-[oklab(0.708_0_0_/_0.5)] text-start indent-[0px] normal-case visible border-separate font-inter">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
