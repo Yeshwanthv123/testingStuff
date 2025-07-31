@@ -1,4 +1,3 @@
-// placeholder for navigation.ts
 export interface NavigationItem {
   readonly id: string;
   readonly label: string;

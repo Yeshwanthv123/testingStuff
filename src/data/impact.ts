@@ -1,4 +1,3 @@
-// placeholder for impact.ts
 export interface Impact {
   readonly id: string;
   readonly title: string;

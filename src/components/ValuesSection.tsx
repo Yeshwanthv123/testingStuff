@@ -1,37 +1,59 @@
-// placeholder for ValuesSection.tsx
 import React from 'react';
-import { valuesData } from '../data/values';
+import { Shield, Users, Lightbulb } from 'lucide-react';
+
+const values = [
+  {
+    icon: Shield,
+    title: 'Transparency',
+    description: 'We believe in open, honest communication about environmental impact. Our calculations are based on peer-reviewed scientific data and methodologies.'
+  },
+  {
+    icon: Users,
+    title: 'Accessibility',
+    description: 'Environmental action should be available to everyone. We design our platform to be intuitive, inclusive, and accessible across all devices and communities.'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Innovation',
+    description: 'We continuously improve our platform with cutting-edge technology, user feedback, and the latest environmental science research.'
+  }
+];
 
 export function ValuesSection() {
   return (
-    <section className="text-black bg-white box-border min-h-[1000px] outline-[oklab(0.708_0_0_/_0.5)]">
-      <div className="relative box-border outline-[oklab(0.708_0_0_/_0.5)] overflow-hidden">
-        <div className="absolute bg-[linear-gradient(oklch(0.985_0.002_247.839)_0%,rgb(255,255,255)_100%)] box-border outline-[oklab(0.708_0_0_/_0.5)] inset-0"></div>
-        <div className="relative box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 py-[70px] md:px-[21px] md:py-28">
-          <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center">
-            <h1 className="text-[31.5px] font-bold box-border tracking-[-0.7875px] leading-[35px] outline-[oklab(0.708_0_0_/_0.5)] mb-[21px] md:text-[52.5px] md:tracking-[-1.3125px] md:leading-[52.5px] md:mb-7">Our Values & Impact</h1>
-            <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[24.5px] max-w-[784px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:text-[17.5px]">
-              Discover the principles that guide our work and our commitment to creating a sustainable future through technology and community action.
+    <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 md:py-32">
+      <div className="max-w-4xl mx-auto px-4 text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-black mb-6 tracking-tight">
+          Our Values & Impact
+        </h1>
+        <p className="text-gray-700 text-lg max-w-3xl mx-auto">
+          Discover the principles that guide our work and our commitment to creating a sustainable 
+          future through technology and community action.
+        </p>
+      </div>
+      
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              Our Values
+            </h2>
+            <p className="text-gray-700 text-lg">
+              The principles that guide our work and shape our platform
             </p>
           </div>
-        </div>
-      </div>
-      <div className="bg-[oklch(0.985_0.002_247.839)] box-border outline-[oklab(0.708_0_0_/_0.5)] py-14 md:py-[84px]">
-        <div className="box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:px-[21px]">
-          <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center mb-[42px] md:mb-14">
-            <h2 className="text-[26.25px] font-bold box-border leading-[31.5px] outline-[oklab(0.708_0_0_/_0.5)] mb-3.5 md:text-[31.5px] md:leading-[35px]">Our Values</h2>
-            <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[24.5px] outline-[oklab(0.708_0_0_/_0.5)] px-3.5 md:text-[17.5px]">The principles that guide our work and shape our platform</p>
-          </div>
-          <div className="box-border gap-x-[21px] grid grid-cols-none outline-[oklab(0.708_0_0_/_0.5)] gap-y-[21px] md:gap-x-[42px] md:grid-cols-[repeat(3,minmax(0px,1fr))] md:gap-y-[42px]">
-            {valuesData.map((value) => (
-              <div key={value.id} className="text-[oklch(0.145_0_0)] bg-white box-border gap-x-[21px] flex flex-col outline-[oklab(0.708_0_0_/_0.5)] gap-y-[21px] p-7 rounded-[12.75px]">
-                <div className="box-border outline-[oklab(0.708_0_0_/_0.5)]">
-                  <div className="items-center bg-black box-border flex h-14 justify-center outline-[oklab(0.708_0_0_/_0.5)] w-14 mb-[21px] rounded-[3.35544e+07px]">
-                    <img src={value.icon} alt="Icon" className="text-white box-border h-7 outline-[oklab(0.708_0_0_/_0.5)] w-7" />
-                  </div>
-                  <h3 className="text-[21px] font-bold box-border leading-7 outline-[oklab(0.708_0_0_/_0.5)] mb-[21px]">{value.title}</h3>
-                  <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[24.5px] outline-[oklab(0.708_0_0_/_0.5)]">{value.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {values.map((value, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl">
+                <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center mb-6">
+                  <value.icon className="w-7 h-7 text-white" />
                 </div>
+                <h3 className="text-xl font-bold text-black mb-6">
+                  {value.title}
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>

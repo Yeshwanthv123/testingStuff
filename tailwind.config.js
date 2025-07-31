@@ -1,4 +1,3 @@
-// placeholder for tailwind.config.js
 module.exports = {
   content: [
     "./src/**/*.{html,js,ts,jsx,tsx}",
@@ -49,6 +48,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
@@ -57,7 +57,7 @@ module.exports = {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
-        "Inter": ["Inter"]
+        "inter": ["Inter", "sans-serif"]
       },
       keyframes: {
         "accordion-down": {

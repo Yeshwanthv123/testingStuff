@@ -1,33 +1,55 @@
-// placeholder for FoundationSection.tsx
 import React from 'react';
-import { foundationSteps } from '../data/foundation';
+import { Activity, Eye, Zap } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Activity,
+    title: 'Track your footprint.',
+    description: 'Log daily activities to see real-time estimates of your carbon output and spot improvement areas. Our comprehensive system captures transportation, energy use, food choices, and consumption patterns.'
+  },
+  {
+    icon: Eye,
+    title: 'Reflect and learn.',
+    description: 'Review your trends, gain actionable insights, and set achievable goals for reducing emissions. Our analytics turn complex data into clear, motivating visualizations.'
+  },
+  {
+    icon: Zap,
+    title: 'Act and inspire change.',
+    description: 'Access tools and resources to lower your impact and share your progress with the community. Transform individual action into collective environmental change.',
+    highlight: 'Will you contribute towards the wellness of society?'
+  }
+];
 
 export function FoundationSection() {
   return (
-    <div className="text-white bg-black box-border outline-[oklab(0.708_0_0_/_0.5)] py-14 md:py-[84px]">
-      <div className="box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:px-[21px]">
-        <h2 className="text-[26.25px] font-bold box-border leading-[31.5px] outline-[oklab(0.708_0_0_/_0.5)] text-center mb-[42px] md:text-[42px] md:leading-[42px] md:mb-[70px]">Our Foundation</h2>
-        <div className="box-border gap-x-7 grid grid-cols-none outline-[oklab(0.708_0_0_/_0.5)] gap-y-7 md:gap-x-[42px] md:grid-cols-[repeat(3,minmax(0px,1fr))] md:gap-y-[42px]">
-          {foundationSteps.map((step) => (
-            <div key={step.id} className="text-black bg-white box-border gap-x-[21px] flex flex-col outline-[oklab(0.708_0_0_/_0.5)] gap-y-[21px] p-[35px] rounded-[12.75px]">
-              <div className="box-border outline-[oklab(0.708_0_0_/_0.5)]">
-                <div className="box-border h-14 outline-[oklab(0.708_0_0_/_0.5)] w-14 mb-[21px]">
-                  <img src={step.icon} alt="Icon" className="box-border h-full outline-[oklab(0.708_0_0_/_0.5)] w-full" />
-                </div>
-                <h3 className="text-[21px] font-bold box-border leading-7 outline-[oklab(0.708_0_0_/_0.5)] mb-[21px]">{step.title}</h3>
-                {step.hasSpecialContent ? (
-                  <div className="box-border outline-[oklab(0.708_0_0_/_0.5)]">
-                    <p className="text-[17.5px] font-medium box-border leading-[24.5px] outline-[oklab(0.708_0_0_/_0.5)] mb-3.5">{step.specialText}</p>
-                    <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[25.5938px] outline-[oklab(0.708_0_0_/_0.5)]">{step.description}</p>
-                  </div>
-                ) : (
-                  <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[25.5938px] outline-[oklab(0.708_0_0_/_0.5)]">{step.description}</p>
+    <section className="bg-black text-white py-16 md:py-24">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+          Our Foundation
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, index) => (
+            <div key={index} className="bg-white text-black p-8 rounded-xl">
+              <div className="w-14 h-14 mb-6">
+                <step.icon className="w-full h-full text-black" />
+              </div>
+              <h3 className="text-xl font-bold mb-6">
+                {step.title}
+              </h3>
+              <div>
+                {step.highlight && (
+                  <p className="text-lg font-medium mb-4">
+                    {step.highlight}
+                  </p>
                 )}
+                <p className="text-gray-700 leading-relaxed">
+                  {step.description}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

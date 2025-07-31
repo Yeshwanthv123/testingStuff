@@ -1,29 +1,58 @@
-// placeholder for WhyCarbonCounter.tsx
 import React from 'react';
-import { whyCarbonCounterFeatures } from '../data/features';
+import { BarChart3, TrendingUp, Target, Users } from 'lucide-react';
+
+const features = [
+  {
+    icon: BarChart3,
+    title: 'Accurate Tracking',
+    description: 'Real-time carbon footprint calculation based on scientific data and algorithms.'
+  },
+  {
+    icon: TrendingUp,
+    title: 'Insightful Analytics',
+    description: 'Comprehensive reports and visualizations to understand your environmental impact.'
+  },
+  {
+    icon: Target,
+    title: 'Goal Setting',
+    description: 'Set personalized reduction targets and track your progress over time.'
+  },
+  {
+    icon: Users,
+    title: 'Community',
+    description: 'Connect with like-minded individuals and share your sustainability journey.'
+  }
+];
 
 export function WhyCarbonCounterSection() {
   return (
-    <div className="bg-[oklch(0.985_0.002_247.839)] box-border outline-[oklab(0.708_0_0_/_0.5)] py-14 md:py-[84px]">
-      <div className="box-border max-w-[1008px] outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:px-[21px]">
-        <div className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center mb-[42px] md:mb-14">
-          <h2 className="text-[26.25px] font-bold box-border leading-[31.5px] outline-[oklab(0.708_0_0_/_0.5)] mb-3.5 md:text-[31.5px] md:leading-[35px]">Why Carbon Counter?</h2>
-          <p className="text-[oklch(0.446_0.03_256.802)] text-[15.75px] box-border leading-[24.5px] max-w-2xl outline-[oklab(0.708_0_0_/_0.5)] mx-auto px-3.5 md:text-[17.5px]">
-            In an era where environmental consciousness is crucial, Carbon Counter bridges the gap between awareness and action, making sustainability accessible to everyone.
+    <section className="bg-gray-50 py-16 md:py-24">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            Why Carbon Counter?
+          </h2>
+          <p className="text-gray-700 text-lg max-w-2xl mx-auto">
+            In an era where environmental consciousness is crucial, Carbon Counter bridges the gap 
+            between awareness and action, making sustainability accessible to everyone.
           </p>
         </div>
-        <div className="box-border gap-x-[21px] grid grid-cols-none outline-[oklab(0.708_0_0_/_0.5)] gap-y-[21px] md:gap-x-7 md:grid-cols-[repeat(4,minmax(0px,1fr))] md:gap-y-7">
-          {whyCarbonCounterFeatures.map((feature) => (
-            <div key={feature.id} className="box-border outline-[oklab(0.708_0_0_/_0.5)] text-center">
-              <div className="items-center bg-black box-border flex h-14 justify-center outline-[oklab(0.708_0_0_/_0.5)] w-14 mb-3.5 mx-auto rounded-[3.35544e+07px]">
-                <img src={feature.icon} alt="Icon" className="text-white box-border h-7 outline-[oklab(0.708_0_0_/_0.5)] w-7" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <div key={index} className="text-center">
+              <div className="w-14 h-14 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                <feature.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-[17.5px] font-semibold box-border leading-[24.5px] outline-[oklab(0.708_0_0_/_0.5)] mb-3.5">{feature.title}</h3>
-              <p className="text-[oklch(0.446_0.03_256.802)] box-border outline-[oklab(0.708_0_0_/_0.5)]">{feature.description}</p>
+              <h3 className="text-lg font-semibold text-black mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 text-sm">
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

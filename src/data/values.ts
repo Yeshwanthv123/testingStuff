@@ -1,4 +1,3 @@
-// placeholder for values.ts
 export interface Value {
   readonly id: string;
   readonly title: string;
@@ -11,18 +10,18 @@ export const valuesData: Value[] = [
     id: 'transparency',
     title: 'Transparency',
     description: 'We believe in open, honest communication about environmental impact. Our calculations are based on peer-reviewed scientific data and methodologies.',
-    icon: "https://c.animaapp.com/mdpq8n7dB9LyKV/assets/icon-10.svg"
+    icon: "https://c.animaapp.com/mdr121f8QFQ9Xs/assets/icon-10.svg"
   },
   {
     id: 'accessibility',
     title: 'Accessibility',
     description: 'Environmental action should be available to everyone. We design our platform to be intuitive, inclusive, and accessible across all devices and communities.',
-    icon: "https://c.animaapp.com/mdpq8n7dB9LyKV/assets/icon-11.svg"
+    icon: "https://c.animaapp.com/mdr121f8QFQ9Xs/assets/icon-11.svg"
   },
   {
     id: 'innovation',
     title: 'Innovation',
     description: 'We continuously improve our platform with cutting-edge technology, user feedback, and the latest environmental science research.',
-    icon: "https://c.animaapp.com/mdpq8n7dB9LyKV/assets/icon-3.svg"
+    icon: "https://c.animaapp.com/mdr121f8QFQ9Xs/assets/icon-3.svg"
   }
 ] as const;
