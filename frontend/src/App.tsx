@@ -1,15 +1,15 @@
 // frontend/src/App.tsx
-// --- MODIFIED FILE ---
-// This is our main component that will handle routing.
+// --- FINAL, CORRECTED FILE ---
 
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/Login';
-import RegisterPage from './pages/Register';
+// Corrected relative import paths
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/Dashboard';
+import HomePage from './pages/HomePage'; // Importing named export
 
 function App() {
-  // A simple way to manage the auth token state
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
   const handleSetToken = (newToken: string | null) => {
@@ -24,16 +24,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={token ? <Navigate to="/" /> : <LoginPage setToken={handleSetToken} />}
+          element={token ? <Navigate to="/dashboard" /> : <LoginPage setToken={handleSetToken} />}
         />
         <Route
           path="/register"
-          element={token ? <Navigate to="/" /> : <RegisterPage />}
+          element={token ? <Navigate to="/dashboard" /> : <RegisterPage />}
         />
+        
+        {/* Protected Route */}
         <Route
-          path="/"
+          path="/dashboard"
           element={token ? <DashboardPage setToken={handleSetToken} /> : <Navigate to="/login" />}
         />
       </Routes>

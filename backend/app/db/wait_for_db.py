@@ -17,6 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def check_db_connection():
+    
     max_retries = 30
     retry_interval = 2  # seconds
     

@@ -1,8 +1,8 @@
 # backend/app/models/user.py
 # --- MODIFIED FILE ---
-# We are replacing the old User model with this new one.
+# We are changing how the 'created_at' timestamp is generated to fix the database error.
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, func # Import func
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
 
@@ -14,4 +14,5 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.timezone.utc)
+    # Use server_default=func.now() to let the database handle the timestamp
+    created_at = Column(DateTime, server_default=func.now())
