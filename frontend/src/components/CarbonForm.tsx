@@ -1,6 +1,6 @@
 // frontend/src/components/CarbonForm.tsx
 // --- MODIFIED FILE ---
-// Corrected the fetch URL.
+// The form now sends the current date to the backend.
 
 import React, { useState } from 'react';
 
@@ -20,11 +20,16 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
     if (!token) {
       setError("You are not logged in.");
       return;
     }
+
     try {
+      // Get today's date in YYYY-MM-DD format
+      const today = new Date().toISOString().split('T')[0];
+
       const response = await fetch('http://127.0.0.1:8000/carbon/', {
         method: 'POST',
         headers: {
@@ -32,18 +37,25 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
+          entry_date: today, // Send the client's date
           electricity_kwh: parseFloat(electricity) || 0,
           driving_km: parseFloat(driving) || 0,
           food_type: food
         }),
       });
-      if (!response.ok) { throw new Error('Failed to submit entry.'); }
+
+      if (!response.ok) {
+        throw new Error('Failed to submit entry.');
+      }
+      
       setSuccess('Entry added successfully!');
       setElectricity('');
       setDriving('');
       setFood('none');
-      onNewEntry();
+      onNewEntry(); // Refresh the list of entries on the dashboard
+
       setTimeout(() => setSuccess(''), 3000);
+
     } catch (err: any) {
       setError(err.message);
     }

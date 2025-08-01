@@ -1,9 +1,10 @@
 # backend/app/schemas/carbon_entry.py
 # --- MODIFIED FILE ---
-# Added carbon_score and updated Config
+# Added an optional entry_date to allow the client to specify the date.
 
 from pydantic import BaseModel
 import datetime
+from typing import Optional
 
 class CarbonEntryBase(BaseModel):
     electricity_kwh: float = 0.0
@@ -11,7 +12,7 @@ class CarbonEntryBase(BaseModel):
     driving_km: float = 0.0
 
 class CarbonEntryCreate(CarbonEntryBase):
-    pass
+    entry_date: Optional[datetime.date] = None # New optional field
 
 class CarbonEntryOut(CarbonEntryBase):
     id: int
@@ -21,4 +22,4 @@ class CarbonEntryOut(CarbonEntryBase):
     owner_id: int
 
     class Config:
-        from_attributes = True # Updated from orm_mode
+        from_attributes = True

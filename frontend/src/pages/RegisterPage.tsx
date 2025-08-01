@@ -1,12 +1,13 @@
 // frontend/src/pages/RegisterPage.tsx
-// --- FINAL INTEGRATED CODE ---
+// --- MODIFIED FILE ---
+// Added a username field to the registration form.
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigation } from '../components/Navigation'; // Assuming this component exists from your friend's code
+import { Navigation } from '../components/Navigation';
 
 const RegisterPage: React.FC = () => {
-  // --- Our Logic Start ---
+  const [username, setUsername] = useState(''); // New state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,7 +22,8 @@ const RegisterPage: React.FC = () => {
       const response = await fetch('http://127.0.0.1:8000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        // Add username to the request body
+        body: JSON.stringify({ username, email, password }),
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -33,10 +35,8 @@ const RegisterPage: React.FC = () => {
       setError(err.message);
     }
   };
-  // --- Our Logic End ---
 
   return (
-    // This is your friend's UI with our logic connected
     <div className="bg-white min-h-screen">
       <Navigation />
       <div className="flex items-center justify-center min-h-[calc(100vh-100px)] px-4 py-8">
@@ -47,11 +47,25 @@ const RegisterPage: React.FC = () => {
               <p className="text-gray-600">Join Carbon Counter today</p>
             </div>
             
-            {/* Displaying our error and success messages */}
             {error && <p className="mb-4 rounded bg-red-100 p-3 text-center text-red-700">{error}</p>}
             {success && <p className="mb-4 rounded bg-green-100 p-3 text-center text-green-600">{success}</p>}
             
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* New Username Field */}
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-black mb-2">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                  required
+                />
+              </div>
+              
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email
