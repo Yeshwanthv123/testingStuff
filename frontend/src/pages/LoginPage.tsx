@@ -1,17 +1,20 @@
 // frontend/src/pages/LoginPage.tsx
-// --- FINAL INTEGRATED CODE ---
+// --- MODIFIED FILE ---
+// Updated the decorative side panel to have a black background.
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigation } from '../components/Navigation'; // Assuming this component exists from your friend's code
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface LoginPageProps {
   setToken: (token: string | null) => void;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
-  // --- Our Logic Start ---
-  const [email, setEmail] = useState(''); // Changed from username to email to match our backend
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -20,7 +23,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
     e.preventDefault();
     setError('');
     const formData = new URLSearchParams();
-    // The backend's form expects 'username', so we pass the email state here
     formData.append('username', email); 
     formData.append('password', password);
     try {
@@ -40,83 +42,58 @@ const LoginPage: React.FC<LoginPageProps> = ({ setToken }) => {
       setError(err.message || 'An unexpected error occurred.');
     }
   };
-  // --- Our Logic End ---
 
   return (
-    // This is your friend's UI with our logic connected
-    <div className="bg-white min-h-screen">
-      <Navigation />
-      <div className="flex items-center justify-center min-h-[calc(100vh-100px)] px-4 py-8">
-        <div className="w-full max-w-md">
-          <div className="bg-white border-2 border-black rounded-lg p-8">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-black mb-2">Sign In</h1>
-              <p className="text-gray-600">Welcome back to Carbon Counter</p>
+    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+      <div className="flex items-center justify-center py-12">
+        <div className="mx-auto grid w-[350px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">Login</h1>
+            <p className="text-balance text-muted-foreground">
+              Enter your email below to login to your account
+            </p>
+          </div>
+          {error && <p className="rounded bg-red-100 p-3 text-center text-sm text-red-700">{error}</p>}
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
-            
-            {/* Displaying our error message */}
-            {error && <p className="mb-4 rounded bg-red-100 p-3 text-center text-red-700">{error}</p>}
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  required
-                />
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
               </div>
-              
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-black mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors font-medium"
-              >
-                Sign In
-              </button>
-            </form>
-            
-            <div className="mt-6 text-center space-y-2">
-              <p className="text-sm text-gray-600">
-                New user?{' '}
-                {/* Corrected the link to point to /register */}
-                <Link to="/register" className="text-black font-medium hover:underline">
-                  Sign up
-                </Link>
-              </p>
-              {/* We can add the forgot password functionality later */}
-              {/* <p className="text-sm">
-                <a href="#" className="text-black hover:underline">
-                  Forgot password?
-                </a>
-              </p> */}
+              <Input 
+                id="password" 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+              />
             </div>
-            
-            <div className="mt-8 text-center">
-              <Link to="/" className="text-sm text-gray-600 hover:text-black">
-                Return to home page
-              </Link>
-            </div>
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link to="/register" className="underline">
+              Sign up
+            </Link>
           </div>
         </div>
+      </div>
+      <div className="hidden bg-black lg:flex items-center justify-center flex-col p-10 text-center text-white">
+         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf"><path d="M11 20A7 7 0 0 1 4 13H2a10 10 0 0 0 10 10z"/><path d="M12 2a7 7 0 0 1 7 7h2a10 10 0 0 0-10-10z"/></svg>
+        <h2 className="mt-6 text-3xl font-bold">Carbon Counter</h2>
+        <p className="mt-2 text-gray-300">Track your footprint, change the world.</p>
       </div>
     </div>
   );

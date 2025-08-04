@@ -1,13 +1,15 @@
 // frontend/src/pages/RegisterPage.tsx
 // --- MODIFIED FILE ---
-// Added a username field to the registration form.
+// Updated the decorative side panel to have a black background.
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigation } from '../components/Navigation';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const RegisterPage: React.FC = () => {
-  const [username, setUsername] = useState(''); // New state
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,7 +24,6 @@ const RegisterPage: React.FC = () => {
       const response = await fetch('http://127.0.0.1:8000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Add username to the request body
         body: JSON.stringify({ username, email, password }),
       });
       if (!response.ok) {
@@ -37,87 +38,66 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen">
-      <Navigation />
-      <div className="flex items-center justify-center min-h-[calc(100vh-100px)] px-4 py-8">
-        <div className="w-full max-w-md">
-          <div className="bg-white border-2 border-black rounded-lg p-8">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-black mb-2">Sign Up</h1>
-              <p className="text-gray-600">Join Carbon Counter today</p>
+    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+       <div className="flex items-center justify-center py-12">
+        <div className="mx-auto grid w-[350px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-3xl font-bold">Sign Up</h1>
+            <p className="text-balance text-muted-foreground">
+              Create your account to start tracking.
+            </p>
+          </div>
+          {error && <p className="rounded bg-red-100 p-3 text-center text-sm text-red-700">{error}</p>}
+          {success && <p className="rounded bg-green-100 p-3 text-center text-sm text-green-600">{success}</p>}
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="your_username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </div>
-            
-            {error && <p className="mb-4 rounded bg-red-100 p-3 text-center text-red-700">{error}</p>}
-            {success && <p className="mb-4 rounded bg-green-100 p-3 text-center text-green-600">{success}</p>}
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* New Username Field */}
-              <div>
-                <label htmlFor="username" className="block text-sm font-medium text-black mb-2">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-black mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  required
-                />
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors font-medium"
-              >
-                Sign Up
-              </button>
-            </form>
-            
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <Link to="/login" className="text-black font-medium hover:underline">
-                  Login
-                </Link>
-              </p>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
-            
-            <div className="mt-8 text-center">
-              <Link to="/" className="text-sm text-gray-600 hover:text-black">
-                Return to home page
-              </Link>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input 
+                id="password" 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+              />
             </div>
+            <Button type="submit" className="w-full">
+              Create an account
+            </Button>
+          </form>
+          <div className="mt-4 text-center text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="underline">
+              Sign in
+            </Link>
           </div>
         </div>
+      </div>
+       <div className="hidden bg-black lg:flex items-center justify-center flex-col p-10 text-center text-white">
+         <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-leaf"><path d="M11 20A7 7 0 0 1 4 13H2a10 10 0 0 0 10 10z"/><path d="M12 2a7 7 0 0 1 7 7h2a10 10 0 0 0-10-10z"/></svg>
+        <h2 className="mt-6 text-3xl font-bold">Carbon Counter</h2>
+        <p className="mt-2 text-gray-300">Track your footprint, change the world.</p>
       </div>
     </div>
   );

@@ -1,8 +1,14 @@
 // frontend/src/components/CarbonForm.tsx
 // --- MODIFIED FILE ---
-// The form now sends the current date to the backend.
+// Refactored to use shadcn/ui components for a cleaner look.
 
 import React, { useState } from 'react';
+
+// Import shadcn/ui components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface CarbonFormProps {
   token: string | null;
@@ -27,9 +33,7 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
     }
 
     try {
-      // Get today's date in YYYY-MM-DD format
       const today = new Date().toISOString().split('T')[0];
-
       const response = await fetch('http://127.0.0.1:8000/carbon/', {
         method: 'POST',
         headers: {
@@ -37,7 +41,7 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          entry_date: today, // Send the client's date
+          entry_date: today,
           electricity_kwh: parseFloat(electricity) || 0,
           driving_km: parseFloat(driving) || 0,
           food_type: food
@@ -52,7 +56,7 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
       setElectricity('');
       setDriving('');
       setFood('none');
-      onNewEntry(); // Refresh the list of entries on the dashboard
+      onNewEntry();
 
       setTimeout(() => setSuccess(''), 3000);
 
@@ -67,37 +71,44 @@ const CarbonForm: React.FC<CarbonFormProps> = ({ token, onNewEntry }) => {
       {error && <p className="mb-4 text-center text-red-500">{error}</p>}
       {success && <p className="mb-4 text-center text-green-500">{success}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Electricity (kWh)</label>
-          <input
-            type="number" step="0.1" value={electricity} onChange={(e) => setElectricity(e.target.value)} placeholder="e.g., 12.5"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+        <div className="space-y-2">
+          <Label htmlFor="electricity">Electricity (kWh)</Label>
+          <Input
+            id="electricity"
+            type="number"
+            step="0.1"
+            value={electricity}
+            onChange={(e) => setElectricity(e.target.value)}
+            placeholder="e.g., 12.5"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Driving (km)</label>
-          <input
-            type="number" step="0.1" value={driving} onChange={(e) => setDriving(e.target.value)} placeholder="e.g., 50"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+        <div className="space-y-2">
+          <Label htmlFor="driving">Driving (km)</Label>
+          <Input
+            id="driving"
+            type="number"
+            step="0.1"
+            value={driving}
+            onChange={(e) => setDriving(e.target.value)}
+            placeholder="e.g., 50"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Main Meal Today</label>
-          <select
-            value={food} onChange={(e) => setFood(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
-          >
-            <option value="none">No main meal / Snacks</option>
-            <option value="veg">Vegetarian Meal</option>
-            <option value="meat">Meat-based Meal</option>
-          </select>
+        <div className="space-y-2">
+          <Label htmlFor="food">Main Meal Today</Label>
+          <Select value={food} onValueChange={setFood}>
+            <SelectTrigger id="food">
+              <SelectValue placeholder="Select a meal type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">No main meal / Snacks</SelectItem>
+              <SelectItem value="veg">Vegetarian Meal</SelectItem>
+              <SelectItem value="meat">Meat-based Meal</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        <button
-          type="submit"
-          className="w-full rounded-md border border-transparent bg-black px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-        >
+        <Button type="submit" className="w-full">
           Add Entry
-        </button>
+        </Button>
       </form>
     </div>
   );
