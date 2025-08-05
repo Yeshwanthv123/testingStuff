@@ -9,13 +9,45 @@ const UserProfile: React.FC = () => {
   const [username, setUsername] = useState('Alex Johnson');
   const [showPassword, setShowPassword] = useState(false);
 
-  const user = {
-    email: 'alex.johnson@email.com',
-    password: 'mySecretPassword123',
-    totalEmitted: '2,430.2 kg',
-    totalSaved: '1,247.8 kg',
-    streak: '12 days'
-  };
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [totalEmitted, setTotalEmitted] = useState('');
+  const [totalSaved, setTotalSaved] = useState('');
+  const [streak, setStreak] = useState('');
+
+  
+React.useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    fetch("http://localhost:8000/users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Unauthorized or fetch error");
+        }
+        return res.json();
+      })
+      .then(data => {
+        setUsername(data.username);
+        setUserEmail(data.email);
+        setUserPassword("********");
+        setTotalEmitted(data.totalEmitted || "0 kg");
+        setTotalSaved(data.totalSaved || "0 kg");
+        setStreak(data.streak || "0 days");
+      })
+      .catch(err => {
+        console.error("Failed to load user profile", err);
+      });
+  } else {
+    console.warn("No token found in localStorage.");
+  }
+}, []);
+
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -54,17 +86,17 @@ const UserProfile: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mt-8">
           <div className="bg-gray-100 p-6 rounded-lg text-center shadow-sm">
             <div className="flex justify-center text-blue-600 text-2xl mb-2">⬇️</div>
-            <p className="text-2xl font-bold">{user.totalSaved}</p>
+            <p className="text-2xl font-bold">{totalSaved}</p>
             <p className="text-sm text-gray-500">Total CO₂ Saved</p>
           </div>
           <div className="bg-gray-100 p-6 rounded-lg text-center shadow-sm">
             <div className="flex justify-center text-blue-600 text-2xl mb-2">⬆️</div>
-            <p className="text-2xl font-bold">{user.totalEmitted}</p>
+            <p className="text-2xl font-bold">{totalEmitted}</p>
             <p className="text-sm text-gray-500">Total Emitted</p>
           </div>
           <div className="bg-gray-100 p-6 rounded-lg text-center shadow-sm">
             <div className="flex justify-center text-red-500 text-2xl mb-2">🔥</div>
-            <p className="text-2xl font-bold">{user.streak}</p>
+            <p className="text-2xl font-bold">{streak}</p>
             <p className="text-sm text-gray-500">Current Streak</p>
           </div>
         </div>
@@ -81,7 +113,7 @@ const UserProfile: React.FC = () => {
               <label className="block text-sm font-semibold mb-1">Email Address</label>
               <input
                 type="email"
-                value={user.email}
+                value={userEmail}
                 readOnly
                 className="w-full border border-gray-300 rounded px-4 py-2 bg-white text-sm"
               />
@@ -93,7 +125,7 @@ const UserProfile: React.FC = () => {
               <div className="relative flex items-center">
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  value={user.password}
+                  value={userPassword}
                   readOnly
                   className="w-full border border-gray-300 rounded px-4 py-2 bg-white text-sm tracking-widest pr-10"
                 />
