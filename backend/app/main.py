@@ -1,3 +1,4 @@
+from app.api.endpoints import user_profile
 # backend/app/main.py
 # --- MODIFIED FILE ---
 # We are making the CORS origins more specific to fix the error.
@@ -29,3 +30,4 @@ app.include_router(api_router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Carbon Counter API"}
+app.include_router(user_profile.router)

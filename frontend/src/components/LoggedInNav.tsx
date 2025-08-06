@@ -22,6 +22,12 @@ export const LoggedInNav: React.FC<LoggedInNavProps> = ({ handleLogout }) => {
             <Link to="/" className="text-2xl font-bold">Carbon Counter</Link>
           </div>
           <div className="flex items-center space-x-4">
+            <Link
+              to="/profile"
+              className="text-gray-500 text-sm font-medium hover:underline"
+            >
+              UserProfile
+            </Link>
             <Link 
               to="/dashboard" 
               className={`px-3 py-2 rounded-md text-sm font-medium ${isDashboard ? 'bg-gray-100 text-black' : 'text-gray-500 hover:bg-gray-50'}`}
