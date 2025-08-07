@@ -9,7 +9,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/Dashboard';
 import HomePage from './pages/HomePage';
 import LeaderboardPage from './pages/LeaderboardPage'; // Import the new page
-import UserProfile from './pages/Userprofile';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
